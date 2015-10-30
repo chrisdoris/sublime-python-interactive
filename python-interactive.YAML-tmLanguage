@@ -1,0 +1,49 @@
+# [PackageDev] target_format: plist, ext: tmLanguage
+# TODO: New scope for docstrings
+---
+name: Python (interactive)
+scopeName: source.interactive.python
+fileTypes: []
+uuid: 84F21621-E16E-41A6-A398-A29143FFF069
+
+patterns:
+- begin: '^(>>>|\.\.\.)\s'
+  end: '$'
+  patterns:
+  - include: source.python
+  beginCaptures:
+    '0':
+      name: interactive.prompt.python
+
+- begin: '^Welcome to Python .* help utility!$'
+  end: '^You are now leaving help and returning to the Python interpreter.$'
+  beginCaptures:
+    '0':
+      name: interactive.output.python
+  endCaptures:
+    '0':
+      name: interactive.output.python
+  patterns:
+
+  - begin: '^help>\s'
+    end: '$'
+    beginCaptures:
+      '0':
+        name: interactive.prompt.python
+    patterns:
+    - match: '\b(modules|symbols|keywords|topics|quit)\b'
+      name: keyword.other.python
+
+  - match: '^.*$'
+    name: interactive.output.python
+
+- begin: '^Traceback \(most recent call last\):$'
+  end: '(?=^>>>)'
+  name: interactive.output.error.python
+
+- match: '^(([[:alpha:]_][[:alnum:]_]*)?Error:).*'
+  name: interactive.output.error.python
+
+- match: '^.+$'
+  name: interactive.output.python
+...
